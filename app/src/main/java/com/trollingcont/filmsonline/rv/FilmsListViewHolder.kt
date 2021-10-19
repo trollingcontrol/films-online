@@ -10,7 +10,11 @@ class FilmsListViewHolder(
 ) {
     private val itemBinding = binding
 
-    fun bind(filmsListAdapter: FilmsListAdapter) {
+    fun bind(
+        filmsListAdapter: FilmsListAdapter,
+        layoutManager: RecyclerView.LayoutManager
+    ) {
         itemBinding.filmsListRecyclerView.adapter = filmsListAdapter
+        itemBinding.filmsListRecyclerView.layoutManager = layoutManager
     }
 }

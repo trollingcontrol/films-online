@@ -1,9 +1,11 @@
 package com.trollingcont.filmsonline.rv
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemFilmsListBinding
 import com.trollingcont.filmsonline.databinding.ItemGenreBinding
@@ -11,6 +13,7 @@ import com.trollingcont.filmsonline.databinding.ItemTitleBinding
 import com.trollingcont.filmsonline.model.MainListItem
 
 class MainListAdapter(
+    context: Context,
     private val onClick: (Int, String) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -23,6 +26,7 @@ class MainListAdapter(
     private val filmsListAdapter = FilmsListAdapter { clickedFilmName ->
         onClick(ITEM_TYPE_FILMS, clickedFilmName)
     }
+    private val filmsListLayoutManager = GridLayoutManager(context, 2)
 
     private var genresList: List<String> = emptyList()
 
@@ -76,7 +80,7 @@ class MainListAdapter(
                 (holder as TitleViewHolder).bind(MainListItem.Title("Фильмы"))
             }
             genresList.size + 2 -> {
-                (holder as FilmsListViewHolder).bind(filmsListAdapter)
+                (holder as FilmsListViewHolder).bind(filmsListAdapter, filmsListLayoutManager)
             }
             else -> {
                 (holder as GenreViewHolder).bind(genresList[position - 1])

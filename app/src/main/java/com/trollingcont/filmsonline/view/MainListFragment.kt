@@ -2,6 +2,7 @@ package com.trollingcont.filmsonline.view
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +40,7 @@ class MainListFragment : Fragment(), MainListContract.View {
 
         mainListComponent.inject(this)
 
-        mainListAdapter = MainListAdapter { clickedElementType, id ->
+        mainListAdapter = MainListAdapter(requireActivity()) { clickedElementType, id ->
             onClickMainList(clickedElementType, id)
         }
 

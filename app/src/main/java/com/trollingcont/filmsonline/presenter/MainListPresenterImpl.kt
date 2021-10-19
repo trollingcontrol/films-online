@@ -66,7 +66,9 @@ class MainListPresenterImpl @Inject constructor(
                 if (film.imageUrl != null) {
                     mainListModel.getFilmImageByUrl(
                         film.imageUrl,
-                        { bitmap -> filmPreviewsList.add(Pair(film.name, bitmap)) },
+                        { bitmap ->
+                            filmPreviewsList.add(Pair(film.name, bitmap))
+                        },
                         { filmPreviewsList.add(Pair(film.name, null)) }
                     )
                 }
@@ -78,14 +80,12 @@ class MainListPresenterImpl @Inject constructor(
         else {
             for (film in films) {
 
-                if (film.imageUrl != null) {
-                    if (film.genres.contains(genre)) {
-                        mainListModel.getFilmImageByUrl(
-                            film.imageUrl,
-                            { bitmap -> filmPreviewsList.add(Pair(film.name, bitmap)) },
-                            { filmPreviewsList.add(Pair(film.name, null)) }
-                        )
-                    }
+                if (film.imageUrl != null && film.genres.contains(genre)) {
+                    mainListModel.getFilmImageByUrl(
+                        film.imageUrl,
+                        { bitmap -> filmPreviewsList.add(Pair(film.name, bitmap)) },
+                        { filmPreviewsList.add(Pair(film.name, null)) }
+                    )
                 }
                 else {
                     filmPreviewsList.add(Pair(film.name, null))
