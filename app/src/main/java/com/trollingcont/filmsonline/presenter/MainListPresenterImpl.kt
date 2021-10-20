@@ -72,9 +72,11 @@ class MainListPresenterImpl @Inject constructor(
         val genresList: MutableList<String> = mutableListOf()
 
         for (film in films) {
-            for (genre in film.genres) {
-                if (!genresList.contains(genre)) {
-                    genresList.add(genre)
+            if (film.genres != null) {
+                for (genre in film.genres) {
+                    if (!genresList.contains(genre)) {
+                        genresList.add(genre)
+                    }
                 }
             }
         }
@@ -87,7 +89,7 @@ class MainListPresenterImpl @Inject constructor(
         val filmsByGenre: MutableList<Film> = mutableListOf()
 
         for (film in filmsList) {
-            if (film.genres.contains(genreName)) {
+            if (film.genres != null && film.genres.contains(genreName)) {
                 filmsByGenre.add(film)
             }
         }
@@ -109,9 +111,11 @@ class MainListPresenterImpl @Inject constructor(
         val filmPreviews: MutableList<FilmPreview> = mutableListOf()
 
         for (film in filmsList) {
-            filmPreviews.add(
-                FilmPreview(film.id, film.localizedName, null)
-            )
+            if (film.id != null) {
+                filmPreviews.add(
+                    FilmPreview(film.id, film.localizedName, null)
+                )
+            }
         }
 
         view?.setFilmPreviewList(filmPreviews)
@@ -120,7 +124,7 @@ class MainListPresenterImpl @Inject constructor(
     private fun generateFilmPreviewListBitmaps(filmList: List<Film>) {
 
         for (film in filmList) {
-            if (film.imageUrl != null) {
+            if (film.imageUrl != null && film.id != null) {
                 model.getFilmImageByUrl(
                     film.imageUrl,
                     { bitmap ->
@@ -131,4 +135,5 @@ class MainListPresenterImpl @Inject constructor(
             }
         }
     }
+
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.trollingcont.filmsonline.MyApplication
+import com.trollingcont.filmsonline.R
 import com.trollingcont.filmsonline.contract.FilmDescriptionContract
 import com.trollingcont.filmsonline.databinding.FragmentFilmDescriptionBinding
 import com.trollingcont.filmsonline.di.FilmDescriptionComponent
@@ -57,22 +58,31 @@ class FilmDescriptionFragment(
     }
 
     override fun setFilmDescription(
-        localizedName: String,
-        name: String,
-        year: Int,
+        localizedName: String?,
+        name: String?,
+        year: Int?,
         rating: Float?,
-        description: String
+        description: String?
     ) {
-        binding.filmLocalizedName.text = localizedName
-        binding.filmName.text = name
-        binding.filmYear.text = year.toString()
-        binding.filmRating.text = if (rating != null) {
-            rating.toString()
-        }
-        else {
-            "отсутствует"
-        }
-        binding.filmDescription.text = description
+        binding.filmLocalizedName.text =
+            localizedName ?: getString(R.string.missing_localized_name)
+
+        binding.filmName.text =
+            name ?: getString(R.string.missing_name)
+
+        binding.filmYear.text =
+            getString(
+                R.string.year_pattern,
+                year ?: getString(R.string.missing_year)
+            )
+
+        binding.filmRating.text =
+            getString(
+                R.string.rating_pattern,
+                rating ?: getString(R.string.missing_rating)
+            )
+        binding.filmDescription.text =
+            description ?: getString(R.string.missing_description)
     }
 
     override fun setFilmBitmap(bitmap: Bitmap) {

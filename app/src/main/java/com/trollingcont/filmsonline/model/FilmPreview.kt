@@ -4,6 +4,6 @@ import android.graphics.Bitmap
 
 data class FilmPreview(
     val id: Int,
-    val name: String,
+    val name: String?,
     var bitmap: Bitmap?
 )

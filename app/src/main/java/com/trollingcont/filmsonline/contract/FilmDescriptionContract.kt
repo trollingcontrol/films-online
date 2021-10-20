@@ -7,11 +7,11 @@ interface FilmDescriptionContract {
 
     interface View {
         fun setFilmDescription(
-            localizedName: String,
-            name: String,
-            year: Int,
+            localizedName: String?,
+            name: String?,
+            year: Int?,
             rating: Float?,
-            description: String
+            description: String?
         )
 
         fun setFilmBitmap(bitmap: Bitmap)

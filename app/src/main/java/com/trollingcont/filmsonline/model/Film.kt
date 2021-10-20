@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName
 
 data class Film(
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
 
     @SerializedName("localized_name")
-    val localizedName: String,
+    val localizedName: String?,
 
     @SerializedName("name")
-    val name: String,
+    val name: String?,
 
     @SerializedName("year")
-    val year: Int,
+    val year: Int?,
 
     @SerializedName("rating")
     val rating: Float?,
@@ -22,8 +22,8 @@ data class Film(
     val imageUrl: String?,
 
     @SerializedName("description")
-    val description: String,
+    val description: String?,
 
     @SerializedName("genres")
-    val genres: List<String>
+    val genres: List<String>?
 )
