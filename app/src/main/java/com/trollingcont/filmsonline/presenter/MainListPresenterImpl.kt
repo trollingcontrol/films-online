@@ -122,7 +122,6 @@ class MainListPresenterImpl @Inject constructor(
         }
 
         view?.setFilmPreviewList(filmPreviews.sortedWith(comparator))
-        //view?.setFilmPreviewList(filmPreviews)
     }
 
     private fun generateFilmPreviewListBitmaps(filmList: List<Film>) {
