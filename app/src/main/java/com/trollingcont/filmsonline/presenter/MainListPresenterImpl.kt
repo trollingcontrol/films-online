@@ -6,7 +6,7 @@ import com.trollingcont.filmsonline.model.FilmPreview
 import javax.inject.Inject
 
 class MainListPresenterImpl @Inject constructor(
-    private val mainListModel: MainListContract.Model
+    private val model: MainListContract.Model
 ) : MainListContract.Presenter {
 
     private var view: MainListContract.View? = null
@@ -21,18 +21,19 @@ class MainListPresenterImpl @Inject constructor(
     }
 
     override fun loadMainList() {
-        mainListModel.getFilms(
+
+        val selectedGenre = model.getSelectedGenre()
+
+        model.getFilms(
             { filmsList ->
-                val genresList = getGenres(filmsList)
-                generateGenresList(genresList)
-                updateFilmPreviewList(filmsList)
+                initializeMainList(filmsList, selectedGenre)
             },
             { }
         )
     }
 
     override fun selectGenre(genreName: String) {
-        mainListModel.getFilms(
+        model.getFilms(
             { filmsList ->
                 val filmsByGenre = getFilmsByGenre(filmsList, genreName)
                 updateFilmPreviewList(filmsByGenre)
@@ -42,10 +43,28 @@ class MainListPresenterImpl @Inject constructor(
                 }
 
                 highlightedGenre = genreName
+
+                if (model.getSelectedGenre() != genreName) {
+                    model.setSelectedGenre(genreName)
+                }
+
                 view?.highlightGenre(genreName)
             },
             { }
         )
+    }
+
+    private fun initializeMainList(filmsList: List<Film>, selectedGenre: String?) {
+        val genresList = getGenres(filmsList)
+
+        generateGenresList(genresList)
+
+        if (selectedGenre != null) {
+            selectGenre(selectedGenre)
+        }
+        else {
+            updateFilmPreviewList(filmsList)
+        }
     }
 
     private fun getGenres(films: List<Film>): List<String> {
@@ -102,7 +121,7 @@ class MainListPresenterImpl @Inject constructor(
 
         for (film in filmList) {
             if (film.imageUrl != null) {
-                mainListModel.getFilmImageByUrl(
+                model.getFilmImageByUrl(
                     film.imageUrl,
                     { bitmap ->
                         view?.setFilmPreviewBitmap(film.id, bitmap)

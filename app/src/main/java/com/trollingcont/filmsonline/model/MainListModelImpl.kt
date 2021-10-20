@@ -10,6 +10,8 @@ class MainListModelImpl @Inject constructor(
     val repository: Repository
 ) : MainListContract.Model {
 
+    private var selectedGenre: String? = null
+
     override fun getFilms(
         onSuccess: (List<Film>) -> Unit,
         onFailure: () -> Unit
@@ -24,4 +26,12 @@ class MainListModelImpl @Inject constructor(
     ) {
         repository.getBitmapByUrl(imageUrl, onSuccess, onFailure)
     }
+
+    override fun getSelectedGenre(): String? =
+        selectedGenre
+
+    override fun setSelectedGenre(genreName: String) {
+        this.selectedGenre = genreName
+    }
+
 }

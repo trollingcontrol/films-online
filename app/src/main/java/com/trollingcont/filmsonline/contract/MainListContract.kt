@@ -39,5 +39,9 @@ sealed interface MainListContract {
             onSuccess: (Bitmap) -> Unit,
             onFailure: () -> Unit
         )
+
+        fun getSelectedGenre(): String?
+
+        fun setSelectedGenre(genreName: String)
     }
 }
