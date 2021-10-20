@@ -1,5 +1,6 @@
 package com.trollingcont.filmsonline.presenter
 
+import android.util.Log
 import com.trollingcont.filmsonline.contract.FilmDescriptionContract
 import javax.inject.Inject
 
@@ -10,8 +11,16 @@ class FilmDescriptionPresenterImpl @Inject constructor(
     private var view: FilmDescriptionContract.View? = null
 
     override fun loadFilmDescription(id: Int) {
+
+        val filmIdToLoad = if (id == -1) {
+            model.getFilmId()
+        }
+        else {
+            id
+        }
+
         model.getFilmById(
-            id,
+            filmIdToLoad,
             { film ->
                 view?.setFilmDescription(
                     film.localizedName,
@@ -20,6 +29,8 @@ class FilmDescriptionPresenterImpl @Inject constructor(
                     film.rating,
                     film.description
                 )
+
+                model.setFilmId(filmIdToLoad)
 
                 if (film.imageUrl != null) {
                     generateFilmBitmap(film.imageUrl)

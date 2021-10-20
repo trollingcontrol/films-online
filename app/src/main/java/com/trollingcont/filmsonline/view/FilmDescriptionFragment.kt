@@ -2,6 +2,7 @@ package com.trollingcont.filmsonline.view
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,19 +14,25 @@ import com.trollingcont.filmsonline.databinding.FragmentFilmDescriptionBinding
 import com.trollingcont.filmsonline.di.FilmDescriptionComponent
 import javax.inject.Inject
 
-class FilmDescriptionFragment(
-    private val filmId: Int
-    ) : Fragment(), FilmDescriptionContract.View {
+class FilmDescriptionFragment : Fragment(), FilmDescriptionContract.View {
 
     private lateinit var binding: FragmentFilmDescriptionBinding
 
     private lateinit var filmDescriptionComponent: FilmDescriptionComponent
 
+    private var filmId: Int = -1
+
     @Inject
     lateinit var filmDescriptionPresenter: FilmDescriptionContract.Presenter
 
     companion object {
-        fun newInstance(filmId: Int) = FilmDescriptionFragment(filmId)
+        fun newInstance(filmId: Int): FilmDescriptionFragment {
+            val newFragment = FilmDescriptionFragment()
+
+            newFragment.setFilmId(filmId)
+
+            return newFragment
+        }
     }
 
     override fun onCreateView(
@@ -42,7 +49,7 @@ class FilmDescriptionFragment(
 
         filmDescriptionPresenter.attach(this)
 
-        loadFilmDescription(filmId)
+        loadFilmDescription()
 
         return binding.root
     }
@@ -53,8 +60,12 @@ class FilmDescriptionFragment(
         filmDescriptionPresenter.detach()
     }
 
-    private fun loadFilmDescription(id: Int) {
-        filmDescriptionPresenter.loadFilmDescription(id)
+    fun setFilmId(id: Int) {
+        filmId = id
+    }
+
+    private fun loadFilmDescription() {
+        filmDescriptionPresenter.loadFilmDescription(filmId)
     }
 
     override fun setFilmDescription(

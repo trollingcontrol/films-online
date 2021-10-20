@@ -19,7 +19,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        openMainListFragment()
+        if (savedInstanceState == null) {
+            openMainListFragment()
+        }
     }
 
     private fun openMainListFragment() {

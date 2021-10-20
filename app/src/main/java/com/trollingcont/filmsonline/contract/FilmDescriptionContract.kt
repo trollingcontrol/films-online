@@ -37,5 +37,9 @@ interface FilmDescriptionContract {
             onSuccess: (Bitmap) -> Unit,
             onFailure: () -> Unit
         )
+
+        fun setFilmId(id: Int)
+
+        fun getFilmId(): Int
     }
 }

@@ -9,6 +9,8 @@ class FilmDescriptionModelImpl @Inject constructor(
     private val repository: Repository
 ) : FilmDescriptionContract.Model {
 
+    private var filmId: Int = -1
+
     override fun getFilmById(
         id: Int,
         onSuccess: (Film) -> Unit,
@@ -35,6 +37,13 @@ class FilmDescriptionModelImpl @Inject constructor(
     ) {
         repository.getBitmapByUrl(imageUrl, onSuccess, onFailure)
     }
+
+    override fun setFilmId(id: Int) {
+        this.filmId = id
+    }
+
+    override fun getFilmId(): Int =
+        this.filmId
 
     private fun getFilmById(filmsList: List<Film>, id: Int): Film? {
 
