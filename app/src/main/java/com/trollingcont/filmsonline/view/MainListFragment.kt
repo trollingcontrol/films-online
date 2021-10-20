@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.trollingcont.filmsonline.MyApplication
+import com.trollingcont.filmsonline.R
 import com.trollingcont.filmsonline.contract.MainListContract
 import com.trollingcont.filmsonline.databinding.FragmentMainListBinding
 import com.trollingcont.filmsonline.di.MainListComponent
@@ -20,7 +21,7 @@ class MainListFragment : Fragment(), MainListContract.View {
     private lateinit var binding: FragmentMainListBinding
     private var mainListAdapter: MainListAdapter? = null
 
-    lateinit var mainListComponent: MainListComponent
+    private lateinit var mainListComponent: MainListComponent
 
     @Inject
     lateinit var mainListPresenter: MainListContract.Presenter
@@ -83,14 +84,17 @@ class MainListFragment : Fragment(), MainListContract.View {
         mainListPresenter.loadMainList()
     }
 
-    private fun onClickMainList(clickedElementType: Int, id: String) {
+    private fun onClickMainList(clickedElementType: Int, item: Any) {
         when (clickedElementType) {
-            MainListAdapter.ITEM_TYPE_GENRE -> mainListPresenter.selectGenre(id)
-            MainListAdapter.ITEM_TYPE_FILMS -> openFilmDescriptionFragment(id)
+            MainListAdapter.ITEM_TYPE_GENRE -> mainListPresenter.selectGenre(item as String)
+            MainListAdapter.ITEM_TYPE_FILMS -> openFilmDescriptionFragment(item as Int)
         }
     }
 
-    private fun openFilmDescriptionFragment(filmName: String) {
-
+    private fun openFilmDescriptionFragment(id: Int) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, FilmDescriptionFragment.newInstance(id))
+            .addToBackStack(null)
+            .commit()
     }
 }

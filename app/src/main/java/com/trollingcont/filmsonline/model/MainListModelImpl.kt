@@ -1,6 +1,7 @@
 package com.trollingcont.filmsonline.model
 
 import android.graphics.Bitmap
+import android.util.Log
 import com.trollingcont.filmsonline.contract.MainListContract
 import com.trollingcont.filmsonline.repository.Repository
 import javax.inject.Inject

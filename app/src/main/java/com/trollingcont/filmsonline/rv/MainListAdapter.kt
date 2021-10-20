@@ -12,7 +12,7 @@ import com.trollingcont.filmsonline.model.FilmPreview
 import com.trollingcont.filmsonline.model.MainListItem
 
 class MainListAdapter(
-    private val onClick: (Int, String) -> Unit
+    private val onClick: (Int, Any) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {

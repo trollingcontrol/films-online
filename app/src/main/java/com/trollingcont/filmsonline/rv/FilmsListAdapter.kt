@@ -7,7 +7,7 @@ import com.trollingcont.filmsonline.databinding.ItemFilmBinding
 import com.trollingcont.filmsonline.model.FilmPreview
 
 class FilmsListAdapter(
-    private val onClick: (String) -> Unit
+    private val onClick: (Any) -> Unit
 ) : RecyclerView.Adapter<FilmViewHolder>() {
 
     var filmsList: MutableList<FilmPreview> = mutableListOf()

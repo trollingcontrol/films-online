@@ -2,6 +2,11 @@ package com.trollingcont.filmsonline.di
 
 import dagger.Module
 
-@Module(subcomponents = [MainListComponent::class])
+@Module(subcomponents =
+    [
+        MainListComponent::class,
+        FilmDescriptionComponent::class
+    ]
+)
 interface SubcomponentsModule {
 }
