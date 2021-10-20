@@ -1,11 +1,9 @@
 package com.trollingcont.filmsonline.rv
 
-import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemFilmsListBinding
 import com.trollingcont.filmsonline.databinding.ItemGenreBinding
@@ -14,7 +12,6 @@ import com.trollingcont.filmsonline.model.FilmPreview
 import com.trollingcont.filmsonline.model.MainListItem
 
 class MainListAdapter(
-    context: Context,
     private val onClick: (Int, String) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

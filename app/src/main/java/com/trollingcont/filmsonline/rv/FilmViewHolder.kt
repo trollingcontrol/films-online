@@ -15,7 +15,10 @@ class FilmViewHolder(
 
     fun bind(itemContent: FilmPreview) {
         itemBinding.filmName.text = itemContent.name
-        itemBinding.filmImage.setImageBitmap(itemContent.bitmap)
+
+        if (itemContent.bitmap != null) {
+            itemBinding.filmImage.setImageBitmap(itemContent.bitmap)
+        }
 
         itemBinding.root.setOnClickListener {
             onClick(itemContent.name)

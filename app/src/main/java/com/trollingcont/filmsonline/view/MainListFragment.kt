@@ -41,7 +41,7 @@ class MainListFragment : Fragment(), MainListContract.View {
 
         mainListComponent.inject(this)
 
-        mainListAdapter = MainListAdapter(requireActivity()) { clickedElementType, id ->
+        mainListAdapter = MainListAdapter { clickedElementType, id ->
             onClickMainList(clickedElementType, id)
         }
 
