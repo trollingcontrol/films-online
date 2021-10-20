@@ -10,6 +10,7 @@ class MainListPresenterImpl @Inject constructor(
 ) : MainListContract.Presenter {
 
     private var view: MainListContract.View? = null
+    private var highlightedGenre: String? = null
 
     override fun attach(view: MainListContract.View) {
         this.view = view
@@ -35,6 +36,13 @@ class MainListPresenterImpl @Inject constructor(
             { filmsList ->
                 val filmsByGenre = getFilmsByGenre(filmsList, genreName)
                 updateFilmPreviewList(filmsByGenre)
+
+                if (highlightedGenre != null) {
+                    view?.removeHighlightFromGenre(highlightedGenre!!)
+                }
+
+                highlightedGenre = genreName
+                view?.highlightGenre(genreName)
             },
             { }
         )

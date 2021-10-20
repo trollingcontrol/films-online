@@ -56,19 +56,27 @@ class MainListFragment : Fragment(), MainListContract.View {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
         mainListPresenter.detach()
     }
 
     override fun updateGenresList(genres: List<String>) {
         mainListAdapter?.setGenresList(genres)
     }
+
     override fun setFilmPreviewList(filmPreviews: List<FilmPreview>) {
         mainListAdapter?.setFilmsList(filmPreviews)
     }
 
     override fun setFilmPreviewBitmap(filmId: Int, bitmap: Bitmap) {
         mainListAdapter?.setFilmBitmap(filmId, bitmap)
+    }
+
+    override fun highlightGenre(genreName: String) {
+        mainListAdapter?.highlightGenre(genreName)
+    }
+
+    override fun removeHighlightFromGenre(genreName: String) {
+        mainListAdapter?.removeHighlightFromGenre(genreName)
     }
 
     private fun loadFilms() {

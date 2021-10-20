@@ -12,6 +12,10 @@ sealed interface MainListContract {
         fun setFilmPreviewList(filmPreviews: List<FilmPreview>)
 
         fun setFilmPreviewBitmap(filmId: Int, bitmap: Bitmap)
+
+        fun highlightGenre(genreName: String)
+
+        fun removeHighlightFromGenre(genreName: String)
     }
 
     interface Presenter {

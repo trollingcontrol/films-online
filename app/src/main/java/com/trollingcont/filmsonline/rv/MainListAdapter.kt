@@ -26,6 +26,27 @@ class MainListAdapter(
     }
 
     private var genresList: List<String> = emptyList()
+    private var highlightedGenre: String? = null
+
+    fun highlightGenre(genreName: String) {
+        highlightedGenre = genreName
+
+        val highlightedGenreIndex = genresList.indexOf(genreName)
+
+        if (highlightedGenreIndex != -1) {
+            notifyItemChanged(highlightedGenreIndex + 1)
+        }
+    }
+
+    fun removeHighlightFromGenre(genreName: String) {
+        highlightedGenre = null
+
+        val highlightedGenreIndex = genresList.indexOf(genreName)
+
+        if (highlightedGenreIndex != -1) {
+            notifyItemChanged(highlightedGenreIndex + 1)
+        }
+    }
 
     fun setGenresList(genres: List<String>) {
         this.genresList = genres
@@ -92,7 +113,14 @@ class MainListAdapter(
                 (holder as FilmsListViewHolder).bind(filmsListAdapter)
             }
             else -> {
-                (holder as GenreViewHolder).bind(genresList[position - 1])
+                val itemColor = if (genresList[position - 1] == highlightedGenre) {
+                    0xFFFF8000.toInt()
+                }
+                else {
+                    0xFF808080.toInt()
+                }
+
+                (holder as GenreViewHolder).bind(genresList[position - 1], itemColor)
             }
         }
     }
