@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemFilmBinding
 import com.trollingcont.filmsonline.model.FilmPreview
+import com.trollingcont.filmsonline.model.FilmPreviewComparator
 
 class FilmsListAdapter(
     private val onClick: (Any) -> Unit

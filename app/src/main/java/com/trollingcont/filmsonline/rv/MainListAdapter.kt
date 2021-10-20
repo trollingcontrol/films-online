@@ -2,6 +2,7 @@ package com.trollingcont.filmsonline.rv
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -59,11 +60,13 @@ class MainListAdapter(
     }
 
     fun setFilmBitmap(filmId: Int, bitmap: Bitmap) {
+
         for ((index, filmPreview) in filmsListAdapter.filmsList.iterator().withIndex()) {
             if (filmPreview.id == filmId) {
-                filmsListAdapter.filmsList[index] =
-                    FilmPreview(filmId, filmPreview.name, bitmap)
-                notifyItemChanged(index)
+
+                filmsListAdapter.filmsList[index].bitmap = bitmap
+
+                filmsListAdapter.notifyItemChanged(index)
 
                 return
             }

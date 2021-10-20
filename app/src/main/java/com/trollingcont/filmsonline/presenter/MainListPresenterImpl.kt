@@ -1,8 +1,10 @@
 package com.trollingcont.filmsonline.presenter
 
+import android.util.Log
 import com.trollingcont.filmsonline.contract.MainListContract
 import com.trollingcont.filmsonline.model.Film
 import com.trollingcont.filmsonline.model.FilmPreview
+import com.trollingcont.filmsonline.model.FilmPreviewComparator
 import javax.inject.Inject
 
 class MainListPresenterImpl @Inject constructor(
@@ -11,6 +13,7 @@ class MainListPresenterImpl @Inject constructor(
 
     private var view: MainListContract.View? = null
     private var highlightedGenre: String? = null
+    private val comparator = FilmPreviewComparator()
 
     override fun attach(view: MainListContract.View) {
         this.view = view
@@ -118,7 +121,8 @@ class MainListPresenterImpl @Inject constructor(
             }
         }
 
-        view?.setFilmPreviewList(filmPreviews)
+        view?.setFilmPreviewList(filmPreviews.sortedWith(comparator))
+        //view?.setFilmPreviewList(filmPreviews)
     }
 
     private fun generateFilmPreviewListBitmaps(filmList: List<Film>) {
