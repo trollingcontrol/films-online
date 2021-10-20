@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemFilmsListBinding
 import com.trollingcont.filmsonline.databinding.ItemGenreBinding
 import com.trollingcont.filmsonline.databinding.ItemTitleBinding
+import com.trollingcont.filmsonline.model.FilmPreview
 import com.trollingcont.filmsonline.model.MainListItem
 
 class MainListAdapter(
@@ -26,7 +27,6 @@ class MainListAdapter(
     private val filmsListAdapter = FilmsListAdapter { clickedFilmName ->
         onClick(ITEM_TYPE_FILMS, clickedFilmName)
     }
-    private val filmsListLayoutManager = GridLayoutManager(context, 2)
 
     private var genresList: List<String> = emptyList()
 
@@ -35,9 +35,21 @@ class MainListAdapter(
         notifyDataSetChanged()
     }
 
-    fun setFilmsList(films: List<Pair<String, Bitmap?>>) {
-        filmsListAdapter.filmsList = films
-        filmsListAdapter.notifyDataSetChanged()
+    fun setFilmsList(filmPreviews: List<FilmPreview>) {
+        filmsListAdapter.filmsList = filmPreviews.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun setFilmBitmap(filmId: Int, bitmap: Bitmap) {
+        for ((index, filmPreview) in filmsListAdapter.filmsList.iterator().withIndex()) {
+            if (filmPreview.id == filmId) {
+                filmsListAdapter.filmsList[index] =
+                    FilmPreview(filmId, filmPreview.name, bitmap)
+                notifyItemChanged(index)
+
+                return
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -80,7 +92,7 @@ class MainListAdapter(
                 (holder as TitleViewHolder).bind(MainListItem.Title("Фильмы"))
             }
             genresList.size + 2 -> {
-                (holder as FilmsListViewHolder).bind(filmsListAdapter, filmsListLayoutManager)
+                (holder as FilmsListViewHolder).bind(filmsListAdapter)
             }
             else -> {
                 (holder as GenreViewHolder).bind(genresList[position - 1])

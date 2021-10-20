@@ -1,5 +1,6 @@
 package com.trollingcont.filmsonline.rv
 
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemFilmsListBinding
 
@@ -11,10 +12,11 @@ class FilmsListViewHolder(
     private val itemBinding = binding
 
     fun bind(
-        filmsListAdapter: FilmsListAdapter,
-        layoutManager: RecyclerView.LayoutManager
+        filmsListAdapter: FilmsListAdapter
     ) {
         itemBinding.filmsListRecyclerView.adapter = filmsListAdapter
-        itemBinding.filmsListRecyclerView.layoutManager = layoutManager
+        itemBinding.filmsListRecyclerView.layoutManager = GridLayoutManager(
+            itemBinding.filmsListRecyclerView.context,2
+        )
     }
 }

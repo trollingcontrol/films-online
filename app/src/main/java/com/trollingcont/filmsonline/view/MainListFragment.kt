@@ -11,6 +11,7 @@ import com.trollingcont.filmsonline.MyApplication
 import com.trollingcont.filmsonline.contract.MainListContract
 import com.trollingcont.filmsonline.databinding.FragmentMainListBinding
 import com.trollingcont.filmsonline.di.MainListComponent
+import com.trollingcont.filmsonline.model.FilmPreview
 import com.trollingcont.filmsonline.rv.MainListAdapter
 import javax.inject.Inject
 
@@ -62,9 +63,12 @@ class MainListFragment : Fragment(), MainListContract.View {
     override fun updateGenresList(genres: List<String>) {
         mainListAdapter?.setGenresList(genres)
     }
-
-    override fun updateFilmPreviewsList(filmPreviews: List<Pair<String, Bitmap?>>) {
+    override fun setFilmPreviewList(filmPreviews: List<FilmPreview>) {
         mainListAdapter?.setFilmsList(filmPreviews)
+    }
+
+    override fun setFilmPreviewBitmap(filmId: Int, bitmap: Bitmap) {
+        mainListAdapter?.setFilmBitmap(filmId, bitmap)
     }
 
     private fun loadFilms() {

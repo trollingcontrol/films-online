@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemFilmBinding
+import com.trollingcont.filmsonline.model.FilmPreview
 
 class FilmsListAdapter(
     private val onClick: (String) -> Unit
 ) : RecyclerView.Adapter<FilmViewHolder>() {
 
-    var filmsList: List<Pair<String, Bitmap?>> = emptyList()
+    var filmsList: MutableList<FilmPreview> = mutableListOf()
     set(value) {
         field = value
         notifyDataSetChanged()

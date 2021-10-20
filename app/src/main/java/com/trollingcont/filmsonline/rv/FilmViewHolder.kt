@@ -1,9 +1,8 @@
 package com.trollingcont.filmsonline.rv
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemFilmBinding
+import com.trollingcont.filmsonline.model.FilmPreview
 
 class FilmViewHolder(
     binding: ItemFilmBinding,
@@ -14,12 +13,12 @@ class FilmViewHolder(
 
     private val itemBinding = binding
 
-    fun bind(itemContent: Pair<String, Bitmap?>) {
-        itemBinding.filmName.text = itemContent.first
-        itemBinding.filmImage.setImageBitmap(itemContent.second)
+    fun bind(itemContent: FilmPreview) {
+        itemBinding.filmName.text = itemContent.name
+        itemBinding.filmImage.setImageBitmap(itemContent.bitmap)
 
         itemBinding.root.setOnClickListener {
-            onClick(itemContent.first)
+            onClick(itemContent.name)
         }
     }
 }

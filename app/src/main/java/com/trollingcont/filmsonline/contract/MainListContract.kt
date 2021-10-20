@@ -2,17 +2,20 @@ package com.trollingcont.filmsonline.contract
 
 import android.graphics.Bitmap
 import com.trollingcont.filmsonline.model.Film
+import com.trollingcont.filmsonline.model.FilmPreview
 
 sealed interface MainListContract {
 
     interface View {
         fun updateGenresList(genres: List<String>)
 
-        fun updateFilmPreviewsList(filmPreviews: List<Pair<String, Bitmap?>>)
+        fun setFilmPreviewList(filmPreviews: List<FilmPreview>)
+
+        fun setFilmPreviewBitmap(filmId: Int, bitmap: Bitmap)
     }
 
     interface Presenter {
-        fun selectGenre(genre: String)
+        fun selectGenre(genreName: String)
 
         fun loadMainList()
 

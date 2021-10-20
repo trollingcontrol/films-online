@@ -1,9 +1,8 @@
 package com.trollingcont.filmsonline.presenter
 
-import android.graphics.Bitmap
-import android.util.Log
 import com.trollingcont.filmsonline.contract.MainListContract
 import com.trollingcont.filmsonline.model.Film
+import com.trollingcont.filmsonline.model.FilmPreview
 import javax.inject.Inject
 
 class MainListPresenterImpl @Inject constructor(
@@ -11,8 +10,6 @@ class MainListPresenterImpl @Inject constructor(
 ) : MainListContract.Presenter {
 
     private var view: MainListContract.View? = null
-
-    private lateinit var filmsList: List<Film>
 
     override fun attach(view: MainListContract.View) {
         this.view = view
@@ -22,24 +19,28 @@ class MainListPresenterImpl @Inject constructor(
         this.view = null
     }
 
-    override fun selectGenre(genre: String) {
-        view?.updateFilmPreviewsList(generateFilmPreviews(filmsList, genre))
-    }
-
     override fun loadMainList() {
         mainListModel.getFilms(
             { filmsList ->
-                this.filmsList = filmsList
-                view?.updateGenresList(generateGenresList(filmsList))
-                view?.updateFilmPreviewsList(generateFilmPreviews(filmsList, null))
+                val genresList = getGenres(filmsList)
+                generateGenresList(genresList)
+                updateFilmPreviewList(filmsList)
             },
-            {
-
-            }
+            { }
         )
     }
 
-    private fun generateGenresList(films: List<Film>): List<String> {
+    override fun selectGenre(genreName: String) {
+        mainListModel.getFilms(
+            { filmsList ->
+                val filmsByGenre = getFilmsByGenre(filmsList, genreName)
+                updateFilmPreviewList(filmsByGenre)
+            },
+            { }
+        )
+    }
+
+    private fun getGenres(films: List<Film>): List<String> {
 
         val genresList: MutableList<String> = mutableListOf()
 
@@ -51,48 +52,56 @@ class MainListPresenterImpl @Inject constructor(
             }
         }
 
-        // Sort list by alphabet
-
         return genresList
     }
 
-    private fun generateFilmPreviews(films: List<Film>, genre: String?): List<Pair<String, Bitmap?>> {
+    private fun getFilmsByGenre(filmsList: List<Film>, genreName: String): List<Film> {
 
-        val filmPreviewsList: MutableList<Pair<String, Bitmap?>> = mutableListOf()
+        val filmsByGenre: MutableList<Film> = mutableListOf()
 
-        if (genre == null) {
-            for (film in films) {
-
-                if (film.imageUrl != null) {
-                    mainListModel.getFilmImageByUrl(
-                        film.imageUrl,
-                        { bitmap ->
-                            filmPreviewsList.add(Pair(film.name, bitmap))
-                        },
-                        { filmPreviewsList.add(Pair(film.name, null)) }
-                    )
-                }
-                else {
-                    filmPreviewsList.add(Pair(film.name, null))
-                }
-            }
-        }
-        else {
-            for (film in films) {
-
-                if (film.imageUrl != null && film.genres.contains(genre)) {
-                    mainListModel.getFilmImageByUrl(
-                        film.imageUrl,
-                        { bitmap -> filmPreviewsList.add(Pair(film.name, bitmap)) },
-                        { filmPreviewsList.add(Pair(film.name, null)) }
-                    )
-                }
-                else {
-                    filmPreviewsList.add(Pair(film.name, null))
-                }
+        for (film in filmsList) {
+            if (film.genres.contains(genreName)) {
+                filmsByGenre.add(film)
             }
         }
 
-        return filmPreviewsList
+        return filmsByGenre
+    }
+
+    private fun generateGenresList(genresList: List<String>) {
+        view?.updateGenresList(genresList)
+    }
+
+    private fun updateFilmPreviewList(filmsList: List<Film>) {
+        generateFilmPreviewList(filmsList)
+        generateFilmPreviewListBitmaps(filmsList)
+    }
+
+    private fun generateFilmPreviewList(filmsList: List<Film>) {
+
+        val filmPreviews: MutableList<FilmPreview> = mutableListOf()
+
+        for (film in filmsList) {
+            filmPreviews.add(
+                FilmPreview(film.id, film.localizedName, null)
+            )
+        }
+
+        view?.setFilmPreviewList(filmPreviews)
+    }
+
+    private fun generateFilmPreviewListBitmaps(filmList: List<Film>) {
+
+        for (film in filmList) {
+            if (film.imageUrl != null) {
+                mainListModel.getFilmImageByUrl(
+                    film.imageUrl,
+                    { bitmap ->
+                        view?.setFilmPreviewBitmap(film.id, bitmap)
+                    },
+                    { }
+                )
+            }
+        }
     }
 }
