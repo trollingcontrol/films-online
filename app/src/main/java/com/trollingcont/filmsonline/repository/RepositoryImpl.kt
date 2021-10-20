@@ -13,7 +13,7 @@ class RepositoryImpl @Inject constructor(
 
     override fun getFilms(
         onSuccess: (List<Film>) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     ) {
         val films = localDataSource.getFilms()
 
@@ -25,7 +25,7 @@ class RepositoryImpl @Inject constructor(
                     localDataSource.setFilms(filmsList)
                     onSuccess(filmsList)
                 },
-                { onFailure() }
+                { throwable -> onFailure(throwable) }
             )
         }
     }
@@ -33,7 +33,7 @@ class RepositoryImpl @Inject constructor(
     override fun getBitmapByUrl(
         imageUrl: String,
         onSuccess: (Bitmap) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     ) {
         val bitmap = localDataSource.getBitmapByUrl(imageUrl)
 
@@ -46,7 +46,7 @@ class RepositoryImpl @Inject constructor(
                     localDataSource.setBitmapByUrl(imageUrl, downloadedBitmap)
                     onSuccess(downloadedBitmap)
                 },
-                { onFailure() }
+                { throwable -> onFailure(throwable) }
             )
         }
     }

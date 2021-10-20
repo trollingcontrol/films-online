@@ -14,7 +14,7 @@ class MainListModelImpl @Inject constructor(
 
     override fun getFilms(
         onSuccess: (List<Film>) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     ) {
         repository.getFilms(onSuccess, onFailure)
     }
@@ -22,7 +22,7 @@ class MainListModelImpl @Inject constructor(
     override fun getFilmImageByUrl(
         imageUrl: String,
         onSuccess: (Bitmap) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     ) {
         repository.getBitmapByUrl(imageUrl, onSuccess, onFailure)
     }

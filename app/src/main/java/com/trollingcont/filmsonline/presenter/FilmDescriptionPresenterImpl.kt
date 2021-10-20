@@ -34,7 +34,7 @@ class FilmDescriptionPresenterImpl @Inject constructor(
                     generateFilmBitmap(film.imageUrl)
                 }
             },
-            { }
+            { throwable -> view?.onError(throwable) }
         )
     }
 
@@ -52,7 +52,7 @@ class FilmDescriptionPresenterImpl @Inject constructor(
             { bitmap ->
                 view?.setFilmBitmap(bitmap)
             },
-            { }
+            { throwable -> view?.onError(throwable) }
         )
     }
 }

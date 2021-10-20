@@ -9,6 +9,7 @@ import com.trollingcont.filmsonline.repository.network.FilmNetworkService
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
+import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
@@ -17,7 +18,7 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override fun getFilms(
         onSuccess: (List<Film>) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     ) {
         filmsNetworkService.filmService()
             .getFilmsList()
@@ -32,13 +33,12 @@ class RemoteDataSourceImpl @Inject constructor(
                         if (response.isSuccessful && responseBody != null) {
                             onSuccess(responseBody.films)
                         } else {
-                            onFailure()
+                            onFailure(IllegalStateException("Response is not correct"))
                         }
                     }
 
                     override fun onFailure(call: Call<FilmList>, t: Throwable) {
-                        Log.d("TESTING", "RemoteDataSourceImpl::getFilms failure $t")
-                        onFailure()
+                        onFailure(t)
                     }
                 }
             )
@@ -47,7 +47,7 @@ class RemoteDataSourceImpl @Inject constructor(
     override fun getImageByUrl(
         imageUrl: String,
         onSuccess: (Bitmap) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     ) {
         filmsNetworkService.filmService()
             .downloadImage(imageUrl)
@@ -68,12 +68,12 @@ class RemoteDataSourceImpl @Inject constructor(
 
                             onSuccess(bitmap)
                         } else {
-                            onFailure()
+                            onFailure(IllegalStateException("Response is not correct"))
                         }
                     }
 
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        onFailure()
+                        onFailure(t)
                     }
 
                 }

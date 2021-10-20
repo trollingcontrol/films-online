@@ -6,12 +6,12 @@ import com.trollingcont.filmsonline.model.Film
 interface RemoteDataSource {
     fun getFilms(
         onSuccess: (List<Film>) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     )
 
     fun getImageByUrl(
         imageUrl: String,
         onSuccess: (Bitmap) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     )
 }

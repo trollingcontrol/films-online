@@ -15,6 +15,8 @@ interface FilmDescriptionContract {
         )
 
         fun setFilmBitmap(bitmap: Bitmap)
+
+        fun onError(throwable: Throwable)
     }
 
     interface Presenter {
@@ -29,13 +31,13 @@ interface FilmDescriptionContract {
         fun getFilmById(
             id: Int,
             onSuccess: (Film) -> Unit,
-            onFailure: () -> Unit
+            onFailure: (Throwable) -> Unit
         )
 
         fun getFilmImageByUrl(
             imageUrl: String,
             onSuccess: (Bitmap) -> Unit,
-            onFailure: () -> Unit
+            onFailure: (Throwable) -> Unit
         )
 
         fun setFilmId(id: Int)

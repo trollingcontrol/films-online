@@ -3,6 +3,7 @@ package com.trollingcont.filmsonline.model
 import android.graphics.Bitmap
 import com.trollingcont.filmsonline.contract.FilmDescriptionContract
 import com.trollingcont.filmsonline.repository.Repository
+import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class FilmDescriptionModelImpl @Inject constructor(
@@ -14,7 +15,7 @@ class FilmDescriptionModelImpl @Inject constructor(
     override fun getFilmById(
         id: Int,
         onSuccess: (Film) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     ) {
         repository.getFilms(
             { filmsList ->
@@ -22,17 +23,17 @@ class FilmDescriptionModelImpl @Inject constructor(
                 if (filmById != null) {
                     onSuccess(filmById)
                 } else {
-                    onFailure()
+                    onFailure(IllegalStateException("Film with id $id not found"))
                 }
             },
-            { onFailure() }
+            { throwable -> onFailure(throwable) }
         )
     }
 
     override fun getFilmImageByUrl(
         imageUrl: String,
         onSuccess: (Bitmap) -> Unit,
-        onFailure: () -> Unit
+        onFailure: (Throwable) -> Unit
     ) {
         repository.getBitmapByUrl(imageUrl, onSuccess, onFailure)
     }

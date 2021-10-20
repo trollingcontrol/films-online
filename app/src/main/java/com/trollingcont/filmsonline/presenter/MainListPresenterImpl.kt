@@ -30,7 +30,7 @@ class MainListPresenterImpl @Inject constructor(
             { filmsList ->
                 initializeMainList(filmsList, selectedGenre)
             },
-            { }
+            { throwable -> view?.onError(throwable) }
         )
     }
 
@@ -52,7 +52,7 @@ class MainListPresenterImpl @Inject constructor(
 
                 view?.highlightGenre(genreName)
             },
-            { }
+            { throwable -> view?.onError(throwable) }
         )
     }
 

@@ -16,6 +16,8 @@ sealed interface MainListContract {
         fun highlightGenre(genreName: String)
 
         fun removeHighlightFromGenre(genreName: String)
+
+        fun onError(throwable: Throwable)
     }
 
     interface Presenter {
@@ -31,13 +33,13 @@ sealed interface MainListContract {
     interface Model {
         fun getFilms(
             onSuccess: (List<Film>) -> Unit,
-            onFailure: () -> Unit
+            onFailure: (Throwable) -> Unit
         )
 
         fun getFilmImageByUrl(
             imageUrl: String,
             onSuccess: (Bitmap) -> Unit,
-            onFailure: () -> Unit
+            onFailure: (Throwable) -> Unit
         )
 
         fun getSelectedGenre(): String?

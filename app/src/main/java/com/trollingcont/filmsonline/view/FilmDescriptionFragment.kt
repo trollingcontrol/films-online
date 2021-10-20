@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.trollingcont.filmsonline.MyApplication
 import com.trollingcont.filmsonline.R
@@ -99,5 +100,9 @@ class FilmDescriptionFragment : Fragment(), FilmDescriptionContract.View {
     override fun setFilmBitmap(bitmap: Bitmap) {
         binding.noImageText.visibility = View.GONE
         binding.filmImage.setImageBitmap(bitmap)
+    }
+
+    override fun onError(throwable: Throwable) {
+        Toast.makeText(requireContext(), throwable.toString(), Toast.LENGTH_LONG).show()
     }
 }
