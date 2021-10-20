@@ -21,8 +21,7 @@ class FilmDescriptionModelImpl @Inject constructor(
                 val filmById = getFilmById(filmsList, id)
                 if (filmById != null) {
                     onSuccess(filmById)
-                }
-                else {
+                } else {
                     onFailure()
                 }
             },

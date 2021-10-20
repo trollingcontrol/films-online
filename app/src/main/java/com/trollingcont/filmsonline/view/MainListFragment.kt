@@ -38,7 +38,7 @@ class MainListFragment : Fragment(), MainListContract.View {
         binding = FragmentMainListBinding.inflate(inflater, container, false)
 
         mainListComponent = (requireActivity().application as MyApplication)
-                .appComponent.mainListComponent().create()
+            .appComponent.mainListComponent().create()
 
         mainListComponent.inject(this)
 

@@ -19,8 +19,7 @@ class RepositoryImpl @Inject constructor(
 
         if (films != null) {
             onSuccess(films)
-        }
-        else {
+        } else {
             remoteDataSource.getFilms(
                 { filmsList ->
                     localDataSource.setFilms(filmsList)
@@ -40,8 +39,7 @@ class RepositoryImpl @Inject constructor(
 
         if (bitmap != null) {
             onSuccess(bitmap)
-        }
-        else {
+        } else {
             remoteDataSource.getImageByUrl(
                 imageUrl,
                 { downloadedBitmap ->

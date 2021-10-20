@@ -1,8 +1,6 @@
 package com.trollingcont.filmsonline.rv
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +8,6 @@ import com.trollingcont.filmsonline.databinding.ItemFilmsListBinding
 import com.trollingcont.filmsonline.databinding.ItemGenreBinding
 import com.trollingcont.filmsonline.databinding.ItemTitleBinding
 import com.trollingcont.filmsonline.model.FilmPreview
-import com.trollingcont.filmsonline.model.MainListItem
 
 class MainListAdapter(
     private val onClick: (Int, Any) -> Unit
@@ -107,10 +104,10 @@ class MainListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (position) {
             0 -> {
-                (holder as TitleViewHolder).bind(MainListItem.Title("Жанры"))
+                (holder as TitleViewHolder).bind("Жанры")
             }
             genresList.size + 1 -> {
-                (holder as TitleViewHolder).bind(MainListItem.Title("Фильмы"))
+                (holder as TitleViewHolder).bind("Фильмы")
             }
             genresList.size + 2 -> {
                 (holder as FilmsListViewHolder).bind(filmsListAdapter)
@@ -118,8 +115,7 @@ class MainListAdapter(
             else -> {
                 val itemColor = if (genresList[position - 1] == highlightedGenre) {
                     0xFFFF8000.toInt()
-                }
-                else {
+                } else {
                     0xFF808080.toInt()
                 }
 

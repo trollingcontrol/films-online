@@ -1,6 +1,5 @@
 package com.trollingcont.filmsonline.presenter
 
-import android.util.Log
 import com.trollingcont.filmsonline.contract.FilmDescriptionContract
 import javax.inject.Inject
 
@@ -14,8 +13,7 @@ class FilmDescriptionPresenterImpl @Inject constructor(
 
         val filmIdToLoad = if (id == -1) {
             model.getFilmId()
-        }
-        else {
+        } else {
             id
         }
 

@@ -16,7 +16,7 @@ class FilmsListViewHolder(
     ) {
         itemBinding.filmsListRecyclerView.adapter = filmsListAdapter
         itemBinding.filmsListRecyclerView.layoutManager = GridLayoutManager(
-            itemBinding.filmsListRecyclerView.context,2
+            itemBinding.filmsListRecyclerView.context, 2
         )
     }
 }

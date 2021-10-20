@@ -1,6 +1,5 @@
 package com.trollingcont.filmsonline.presenter
 
-import android.util.Log
 import com.trollingcont.filmsonline.contract.MainListContract
 import com.trollingcont.filmsonline.model.Film
 import com.trollingcont.filmsonline.model.FilmPreview
@@ -64,8 +63,7 @@ class MainListPresenterImpl @Inject constructor(
 
         if (selectedGenre != null) {
             selectGenre(selectedGenre)
-        }
-        else {
+        } else {
             updateFilmPreviewList(filmsList)
         }
     }

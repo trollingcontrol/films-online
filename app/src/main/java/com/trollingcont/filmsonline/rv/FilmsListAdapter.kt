@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemFilmBinding
 import com.trollingcont.filmsonline.model.FilmPreview
-import com.trollingcont.filmsonline.model.FilmPreviewComparator
 
 class FilmsListAdapter(
     private val onClick: (Any) -> Unit
 ) : RecyclerView.Adapter<FilmViewHolder>() {
 
     var filmsList: MutableList<FilmPreview> = mutableListOf()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
         val binding = ItemFilmBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
 
-        return FilmViewHolder(binding) {
-            clickedFilmName -> onClick(clickedFilmName)
+        return FilmViewHolder(binding) { clickedFilmName ->
+            onClick(clickedFilmName)
         }
     }
 

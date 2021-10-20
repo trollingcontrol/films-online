@@ -31,8 +31,7 @@ class RemoteDataSourceImpl @Inject constructor(
 
                         if (response.isSuccessful && responseBody != null) {
                             onSuccess(responseBody.films)
-                        }
-                        else {
+                        } else {
                             onFailure()
                         }
                     }
@@ -68,8 +67,7 @@ class RemoteDataSourceImpl @Inject constructor(
                             )
 
                             onSuccess(bitmap)
-                        }
-                        else {
+                        } else {
                             onFailure()
                         }
                     }

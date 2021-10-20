@@ -2,7 +2,6 @@ package com.trollingcont.filmsonline.rv
 
 import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemTitleBinding
-import com.trollingcont.filmsonline.model.MainListItem
 
 class TitleViewHolder(
     binding: ItemTitleBinding
@@ -11,7 +10,7 @@ class TitleViewHolder(
 ) {
     private val itemBinding = binding
 
-    fun bind(itemContent: MainListItem.Title) {
-        itemBinding.titleName.text = itemContent.titleName
+    fun bind(itemContent: String) {
+        itemBinding.titleName.text = itemContent
     }
 }
