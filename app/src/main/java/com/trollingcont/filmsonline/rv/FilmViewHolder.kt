@@ -1,5 +1,6 @@
 package com.trollingcont.filmsonline.rv
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.trollingcont.filmsonline.databinding.ItemFilmBinding
 import com.trollingcont.filmsonline.model.FilmPreview
@@ -17,6 +18,7 @@ class FilmViewHolder(
         itemBinding.filmName.text = itemContent.name
 
         if (itemContent.bitmap != null) {
+            itemBinding.noImageText.visibility = View.GONE
             itemBinding.filmImage.setImageBitmap(itemContent.bitmap)
         }
 

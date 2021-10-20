@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FilmsOnline</string>
+    <string name="no_image_text">No image</string>
 </resources>
