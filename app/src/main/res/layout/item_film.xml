@@ -34,6 +34,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/filmImage"
         app:layout_constraintTop_toBottomOf="@id/filmImage"
+        android:maxLines="2"
+        android:ellipsize="end"
         tools:text="Film Name"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
